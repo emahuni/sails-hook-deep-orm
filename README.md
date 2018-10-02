@@ -12,15 +12,15 @@ This hook was developed by Emmanuel Mahuni of Emanimation Technologies for packa
 
 # Features:
 - Polymorphic Populations
->    - eg: `js let Results = await Status.find().populate('*');`
+    - eg: `js let Results = await Status.find().populate('*');`
 - Deep Populations
->    - eg: `js let Results = await Person.find().populate('home.occupants.statuses.*');`
+    - eg: `js let Results = await Person.find().populate('home.occupants.statuses.*');`
 - Inclusive Criteria Populations
->    - eg: `js let Results = await Person.find().populate('home.occupants&state.statuses&phones.*&network');`
+    - eg: `js let Results = await Person.find().populate('home.occupants&state.statuses&phones.*&network');`
 - Deep Wild Object and Array Utils
->    - eg: `js sails.hooks.deeporm.wild.get(Records, "*.home.occupants.*.phones.0.number");`
+    - eg: `js sails.hooks.deeporm.wild.get(Records, "*.home.occupants.*.phones.0.number");`
 - Dynamic Attribute Methods [todo]
->    - patch-in dynamic common model methods to reduce boilerplate code.
+    - patch-in dynamic common model methods to reduce boilerplate code.
 
 
 
@@ -142,10 +142,10 @@ Just that! Our `Status` model potentially belongs to all the above-mentioned mod
 
 #### Polymorphic Model Syntax
 >- The asterix **'*'** means we don't know to whom this belongs, figure out who points here at runtime and create a reverse relationship; thus polymorphing the attribute.
-- The *`affiliated`* attribute is the `Status` model's attribute that morphs its association to any model that associates any of its attributes to the `Status` model *via* this attribute.
-- This **polymorphic attribute** is what makes the `Status` model a  **polymorphic model**.
-- You can name the polymorphic attribute whatever you choose that makes sense to you it doesn't have to be 'affiliated'. The hook will figure it out and work with it accordingly.
-- Though you can have different multiple polymorphic attributes in your app models and name them whatever you want it's preferable and recommended to use as few as one polymorphic attribute name throughout your entire application. ie: if you choose to use `"affiliated"` as your polymorphic attribute name then it is recommended that you stick with it in all your polymorphic models. The fewer they are the less likely you will get mixed up when defining your models.
+>- The *`affiliated`* attribute is the `Status` model's attribute that morphs its association to any model that associates any of its attributes to the `Status` model *via* this attribute.
+>- This **polymorphic attribute** is what makes the `Status` model a  **polymorphic model**.
+>- You can name the polymorphic attribute whatever you choose that makes sense to you it doesn't have to be 'affiliated'. The hook will figure it out and work with it accordingly.
+>- Though you can have different multiple polymorphic attributes in your app models and name them whatever you want it's preferable and recommended to use as few as one polymorphic attribute name throughout your entire application. ie: if you choose to use `"affiliated"` as your polymorphic attribute name then it is recommended that you stick with it in all your polymorphic models. The fewer they are the less likely you will get mixed up when defining your models.
 
 
 #### What happens when we populate?
@@ -170,7 +170,7 @@ For getting the inverse related data ie: the unknown models' records that associ
 let results = await Status.find(1).populate('*');
 ```
 >- The polymorphic token **"*"** denotes that we want to use the polymorphic attribute of this model to morph it into all the several possible associations and populate those.
-- This polymorphic token population is applicable to polymorphic models only.
+>- This polymorphic token population is applicable to polymorphic models only.
 
 It produces something like:
 ```js
@@ -222,8 +222,8 @@ Succinct, powerful and intuitive right?
 
 #### What just happened?
 >- The hook cleanups and aggregates all the populated polymorphic records into one dictionary named after the model's polymorphic attribute.
-- In addition it will give you each model records' dictionary keyed with the model name.
-- This behaviour can be overridden see options below.
+>- In addition it will give you each model records' dictionary keyed with the model name.
+>- This behaviour can be overridden see options below.
 
 Remember the `via:"affiliated"` part in the `House` and `Person` models? that's what you are getting there as the aggregate key `'affiliated'`:
 ```js
@@ -329,7 +329,7 @@ When using the polymorphic token "*", the hook populates all polymorphic associa
 let results = await Status.find().populate('*house');
 ```
 >- This will populate all polymorphic associations from the `House` model only.
-- You can use inclusive criteria population to specify more than one. [See below for more details](#inclusive-populate-criterias)
+>- You can use inclusive criteria population to specify more than one. [See below for more details](#inclusive-populate-criterias)
 
 #### Use Subcriterias
 You can use subcriterias to narrow down the records to populate:
@@ -337,7 +337,7 @@ You can use subcriterias to narrow down the records to populate:
 let results = await Status.find(1).populate('*', {address: {contains: '11055'}});
 ```
 >- That limits populations to records that have an address field that contains '11055' only.
-- from our exemplar model definitions the only records that qualify are from the House model since it's the only one with an address attribute. Then they're filtered for their contents.
+>- from our exemplar model definitions the only records that qualify are from the House model since it's the only one with an address attribute. Then they're filtered for their contents.
 
 To target multiple models try to use the 'or' query:
 ```js
@@ -358,10 +358,10 @@ That whole string `'home.occupants.statuses.*'` is a **deep path** and each segm
 
 #### What's going to happen?
 >- find will first retrieve the requested records
-- deep populate splits the given path into **depths** using the deep path token **'.'**
-- using the first **depth** `"home"`, populate will go through each of the retrieved records to populate the `"home"` association.
-- on each of those `"home"` record(s) it will then use the next depth, `"occupants"`, to populate the `"occupants"` association.
-- it'll repeat this until it can't retrieve records on a given depth or when the requested deep path is complete. eg: if `"occupants"` does not produce any records then populations end there because there's no way for it to continue.
+>- deep populate splits the given path into **depths** using the deep path token **'.'**
+>- using the first **depth** `"home"`, populate will go through each of the retrieved records to populate the `"home"` association.
+>- on each of those `"home"` record(s) it will then use the next depth, `"occupants"`, to populate the `"occupants"` association.
+>- it'll repeat this until it can't retrieve records on a given depth or when the requested deep path is complete. eg: if `"occupants"` does not produce any records then populations end there because there's no way for it to continue.
 
 
 The above example will make populate to dig through the given associations against the retrieved records to produce this:
@@ -431,8 +431,8 @@ The above example will make populate to dig through the given associations again
 ```
 #### Notes
 >- Each depth is used as a criteria to populate the previous depth's records.
-- It goes on as deep as needed and populates as long as there are records produced that meet the criteria.
-- The deeper you go the more time it takes to execute the process, though the processing is very fast.
+>- It goes on as deep as needed and populates as long as there are records produced that meet the criteria.
+>- The deeper you go the more time it takes to execute the process, though the processing is very fast.
 
 ### Narrowing Down
 You can use subcriterias to narrow down your deep populations:
@@ -442,10 +442,10 @@ You can use subcriterias to narrow down your deep populations:
 let results = await Person.find().populate('home.occupants.statuses.*', { id: 1 });
 ```
 >- the subcriteria will be applied to all depths in the deep path:
-  - home ⇒ {id:1}
-  - occupants ⇒ {id:1}
-  - statuses ⇒ {id:1}
-  - \* ⇒ {id:1} *// [see explanation above](#use-subcriterias) on Use Subcriterias*
+>  - home ⇒ {id:1}
+>  - occupants ⇒ {id:1}
+>  - statuses ⇒ {id:1}
+>  - \* ⇒ {id:1} *// [see explanation above](#use-subcriterias) on Use Subcriterias*
 
 
 >- because of this you should make sure the subcriteria qualifies each depth otherwise a depth may mis-match on technical grounds, ie the specified attribute eg: `id`, should be present in all associations' models *[todo throw if a single criteria mismatches because of an attribute name]*
@@ -465,10 +465,10 @@ let results = await Person.find(1).populate('home.occupants.statuses.*',
               );
 ```
 >- the array of subcriterias is broken down into its constituents and each subcriteria applied to its corresponding depth in the deep path:
-    - home ⇒ undefined *// was supposed to be {address:{contains:"1055"}} but Waterline won't apply subcriterias to model type associations because they think it doesn't make sense. They should change this, it's an unnecessary hard limit. What if those are my clear intentions to actually proceed with population only if that single record meets my query?*
-    - occupants ⇒ {firstname: {contains: 'a'}}
-    - statuses ⇒ {label: 'active'}
-    - \* ⇒  {or:[{id: 1},{firstname: { contains: 'be'}}]} *// [See above explanation](#single-subcriteria) on Single Subcriteria*
+>    - home ⇒ undefined *// was supposed to be {address:{contains:"1055"}} but Waterline won't apply subcriterias to model type associations because they think it doesn't make sense. They should change this, it's an unnecessary hard limit. What if those are my clear intentions to actually proceed with population only if that single record meets my query?*
+>    - occupants ⇒ {firstname: {contains: 'a'}}
+>    - statuses ⇒ {label: 'active'}
+>    - \* ⇒  {or:[{id: 1},{firstname: { contains: 'be'}}]} *// [See above explanation](#single-subcriteria) on Single Subcriteria*
 
 Produces:
 ```js
@@ -646,8 +646,8 @@ This will populate `"occupants"` and `"condition"` associations on `"home"` reco
 ### Gotcha
 If you are keeping track on this well you should've noticed that:
 >-  `"condition"` records ⇒ `Status` model - doesn't have `"phones"` nor `"statuses"`  associations
--  `"statuses"` records ⇒ `Status` model - doesn't have `"network"` association
--  and `"phones"` ⇒ Phone model - isn't a polymaphic model, therefore it won't work with `"*"`
+>-  `"statuses"` records ⇒ `Status` model - doesn't have `"network"` association
+>-  and `"phones"` ⇒ Phone model - isn't a polymaphic model, therefore it won't work with `"*"`
 
 Waterline should have thrown at us and crashed the whole process. The reason this works is because inclusive populate coerces populate to ignore any association mismatches and this feature won't work without doing this. In fact it leverages this to do what it needs to do. Take for instance the part where `"phones"` and `"statuses"` associations are invalid for `"condition"` records, but valid for `"occupants"` records.
 
@@ -656,7 +656,7 @@ Waterline should have thrown at us and crashed the whole process. The reason thi
 ### Narrowing Down With Subcriterias
 The same rules for deep populations single and multiple subcriterias described above apply to inclusive criterias as well with one additional complexity; when deep populate applies a subcriteria to a depth that is an inclusive criteria then these following rules are applied:
 >- if the subcriteria is an object then the same subcriteria applies to each of the inclusive criteria segments
-- otherwise, as an array, it is split into its constituencies and applied to each segment accordingly.
+>- otherwise, as an array, it is split into its constituencies and applied to each segment accordingly.
 
 ```js
 Person.find(1).populate('home.occupants&condition.statuses&phones.network&*', [
@@ -678,12 +678,12 @@ Person.find(1).populate('home.occupants&condition.statuses&phones.network&*', [
 
 Broken down to:
 >- home ⇒ {address: {contains: '11055'}} *// remember this won't do anything 😧*
-- occupants ⇒ {firstname: {contains: 'a'}} *// applied to both `"occupants"` and `"condition"` because it is an object*
-- condition ⇒ {firstname: {contains: 'a'}} *// will never match any `"condition"` records since the model for `"condition"` association is `Status`, which doesn't have a `"firstname"` attribute*
-- statuses ⇒ {label: 'active'}
-- phones ⇒ {number: {contains: '71'}}
-- network ⇒ undefined *// coz of `{}` so it will match anything without subcriteria restrictions*
-- \* ⇒ {or:[{name: 'Netone'}, {firstname: { contains: 'be'}}]}
+>- occupants ⇒ {firstname: {contains: 'a'}} *// applied to both `"occupants"` and `"condition"` because it is an object*
+>- condition ⇒ {firstname: {contains: 'a'}} *// will never match any `"condition"` records since the model for `"condition"` association is `Status`, which doesn't have a `"firstname"` attribute*
+>- statuses ⇒ {label: 'active'}
+>- phones ⇒ {number: {contains: '71'}}
+>- network ⇒ undefined *// coz of `{}` so it will match anything without subcriteria restrictions*
+>- \* ⇒ {or:[{name: 'Netone'}, {firstname: { contains: 'be'}}]}
 
 Results for the above:
 ```js
