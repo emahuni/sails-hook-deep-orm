@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-deep-orm",
-  "version": "0.17.1",
+  "version": "1.0.0",
   "description": "Emanimation Technologies Deep ORM hook for Sails ORM. This introduces polymorphic associations, deep population, inclusive population syntax and more, [dynamic attribute methods, soft deletes]",
   "main": "index.js",
   "scripts": {
