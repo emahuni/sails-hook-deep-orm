@@ -42,24 +42,6 @@ module.exports = function definePolymorphicHook (sails) {
 				},
 				
         initialize: function(cb) {
-						// i hate the default printing of console.log so let's pretty it up a bit for clearer viewing
-						let inspect = require('util').inspect;
-
-						inspect.defaultOptions = {
-								depth: 7,
-								colors: true,
-								compact: true,
-								showProxy: false,
-								showHidden: false,
-						};
-
-						// inspect.styles.name = 'grey';
-						inspect.styles.number = 'yellow';
-						inspect.styles.name = 'italic';
-
-						// sails.log.debug('inspect default Options: ', inspect.defaultOptions);
-
-						
 						
             // monkey patch the load models function
             sails.hooks.moduleloader.loadModels = function (cb2) {
@@ -77,9 +59,7 @@ module.exports = function definePolymorphicHook (sails) {
                     // call the actual cb which is in normal sails pipeline
                     return cb2(err, models);
                 });
-            }
-
-            
+            }   
 
             sails.on('hook:orm:loaded', function (){
                 sails.log.info('DEEP-ORM - Patching model methods with deep orm logic...');
