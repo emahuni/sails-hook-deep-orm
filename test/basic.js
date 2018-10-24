@@ -223,14 +223,41 @@ describe('Basic tests ::', function() {
 
 										// log.debug('findOne and association result: ');
 										// console.dir(r, {depth: null});
-
+																
 										expect(r).to.be.an('object');
 										expect(r.statuses).to.be.lengthOf.above(0);
 								});
 								
 						});
 
-						// findOrCreate cannot populate, so no tests here.
+						// Can't populate findOrCreate but test to ensure nothing breaks 
+
+						context(`findOrCreate #: `, function (){
+							it(`@${__line()} can findOrCreate with Person already existing:`, async function (){
+									
+									let r = await Person.findOrCreate({ id: 2 }, {
+										firstname: 'Test',
+										lastname: 'User'
+									});
+								
+									expect(r).to.be.an('object');
+									expect(r.statuses).to.be.lengthOf.above(0);
+							});
+
+							it(`@${__line()} can findOrCreate with Person created new:`, async function (){
+									
+								let r = await Person.findOrCreate({ id: 999 }, {
+									firstname: 'Test',
+									lastname: 'User'
+								});
+				
+								expect(r).to.be.an('object');
+								expect(r.firstName).to.be.equal('Test')
+								expect(r.lastname).to.be.equal('User')
+						});
+							
+					});
+
 						
 						context(`stream #: `, function (){
 								it(`@${__line()} can stream and populate all  associations on model using populateAll():`, async function (){
