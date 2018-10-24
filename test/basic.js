@@ -223,8 +223,7 @@ describe('Basic tests ::', function() {
 
 										// log.debug('findOne and association result: ');
 										// console.dir(r, {depth: null});
-										console.log(r)
-							
+																
 										expect(r).to.be.an('object');
 										expect(r.statuses).to.be.lengthOf.above(0);
 								});
