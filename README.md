@@ -130,6 +130,7 @@ module.exports = {
 ```
 
 Just that! Our `Status` model potentially belongs to all the above-mentioned models, and it doesn't have any declarative references to any of them.
+
 Behind the scene, it leverages sails-hook-orm many-to-many association by modifying above models to the following and Sails will create association table, e.g. "person_statues\_\_status_affiliated-\_-person-\_-statuses" table to connect "person" table and "status" table (Sails names the association table in table_key\_\_table_key format)
 
 ```js
