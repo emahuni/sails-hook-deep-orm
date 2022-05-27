@@ -225,7 +225,6 @@ describe('Basic tests ::', function () {
           // get each id of the records with statuses population; thus filtering out the others that don't have
           let ars_ids = utils.get(results, '*.statuses.*.id');
 
-          console.log(ars_ids);
           expect(ars_ids).to.be.an('array').that.has.lengthOf.above(0);
           // go thru each one
           for (let ar_id of ars_ids) {
@@ -1135,7 +1134,6 @@ describe('Basic tests ::', function () {
 
                 results = JSON.parse(JSON.stringify(results));
 
-                console.log(JSON.stringify(results));
                 // let d = nodeUtil.inspect.defaultOptions.depth;
                 // nodeUtil.inspect.defaultOptions.depth = null;
                 // log.debug(`@${__line()} Test result (subcriteria: { id: %s } ): \n`, id, results);
@@ -1196,7 +1194,7 @@ function getAssertPropsHas(data, path, control) {
     .that.has.lengthOf.above(0);
 
   let props = utils.get(data, path);
-  console.log(props);
+
   // log(`${__line()} '${path}' gathered properties: `, props);
 
   expect(
@@ -1229,7 +1227,7 @@ function getAssertPropsHas(data, path, control) {
     .that.has.lengthOf.above(0);
 
   let props = utils.get(data, path);
-  console.log(props);
+
   // log(`${__line()} '${path}' gathered properties: `, props);
 
   expect(

@@ -34,7 +34,6 @@
     "chai": "^4.1.2",
     "mocha": "^5.2.0",
     "sails": "^1.5.0",
-    "sails-hook-orm": "^3.0.2",
     "sails-mysql": "^1.0.3"
   },
   "dependencies": {
@@ -42,6 +41,7 @@
     "dot-wild": "^3.0.1",
     "flaverr": "^1.9.2",
     "lineno": "^0.1.0",
+    "sails-hook-orm": "^4.0.1",
     "type-detect": "^4.0.8"
   }
 }
