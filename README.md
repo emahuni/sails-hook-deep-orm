@@ -133,6 +133,8 @@ Just that! Our `Status` model potentially belongs to all the above-mentioned mod
 
 Behind the scene, it leverages sails-hook-orm many-to-many association by modifying above models to the following and Sails will create association table, e.g. "person_statues\_\_status_affiliated-\_-person-\_-statuses" table to connect "person" table and "status" table (Sails names the association table in table_key\_\_table_key format)
 
+> eg. for `Status` model:
+
 ```js
 // api/models/Status.js
 module.exports = {
@@ -157,7 +159,8 @@ module.exports = {
   },
 };
 ```
-
+> eg. for `Person` model:
+ 
 ```js
 // api/models/Person.js
 module.exports = {
